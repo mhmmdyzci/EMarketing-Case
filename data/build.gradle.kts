@@ -38,5 +38,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.hilt.android)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.androidx.datastore.preferences)
     kapt(libs.hilt.compiler)
+    testImplementation(libs.junit)
 }

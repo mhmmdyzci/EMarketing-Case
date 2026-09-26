@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_brand">eMarketing</string>
+    <string name="login_title">Hesabına giriş yap</string>
+    <string name="login_subtitle">Kampanya ve ürün yönetimine devam et.</string>
+    <string name="login_username_label">Kullanıcı adı</string>
+    <string name="login_password_label">Şifre</string>
+    <string name="login_show_password">Şifreyi göster</string>
+    <string name="login_hide_password">Şifreyi gizle</string>
+    <string name="login_action">Giriş yap</string>
+    <string name="login_error_invalid_credentials">Kullanıcı adı veya şifre hatalı.</string>
+    <string name="error_timeout">İstek zaman aşımına uğradı. Tekrar dene.</string>
+    <string name="error_unauthorized">Oturumun sona erdi. Tekrar giriş yap.</string>
+    <string name="error_server">Sunucuya şu anda ulaşılamıyor. Daha sonra tekrar dene.</string>
+    <string name="error_invalid_data">Alınan veri işlenemedi.</string>
+    <string name="error_no_connection">İnternet bağlantını kontrol edip tekrar dene.</string>
+    <string name="error_storage">Veri güvenli biçimde kaydedilemedi.</string>
+    <string name="error_unknown">Bir sorun oluştu. Tekrar dene.</string>
+</resources>
