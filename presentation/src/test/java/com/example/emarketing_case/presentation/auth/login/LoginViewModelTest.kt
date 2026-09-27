@@ -4,12 +4,14 @@ import com.example.emarketing_case.domain.model.AppError
 import com.example.emarketing_case.domain.model.AppResult
 import com.example.emarketing_case.domain.model.AuthSession
 import com.example.emarketing_case.domain.model.LoginCredentials
+import com.example.emarketing_case.domain.model.SessionState
 import com.example.emarketing_case.domain.repository.AuthRepository
 import com.example.emarketing_case.domain.usecase.LoginUseCase
 import com.example.emarketing_case.presentation.R
 import com.example.emarketing_case.presentation.error.AppErrorMessageMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
@@ -72,6 +74,17 @@ class LoginViewModelTest {
     private class FakeAuthRepository(
         private val result: AppResult<AuthSession>,
     ) : AuthRepository {
+        override val sessionState = MutableStateFlow<SessionState>(SessionState.Unknown)
+
         override suspend fun login(credentials: LoginCredentials): AppResult<AuthSession> = result
+
+        override suspend fun refreshSession(failedAccessToken: String?): AppResult<AuthSession> =
+            error("Refresh is not expected in login tests")
+
+        override suspend fun restoreSession(): AppResult<Unit> =
+            error("Restore is not expected in login tests")
+
+        override suspend fun logout(): AppResult<Unit> =
+            error("Logout is not expected in login tests")
     }
 }

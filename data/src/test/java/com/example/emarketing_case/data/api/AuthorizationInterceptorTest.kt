@@ -57,7 +57,8 @@ class AuthorizationInterceptorTest {
     ) : TokenStorage {
         override suspend fun save(session: AuthSession) = Unit
 
-        override suspend fun restoreIfNeeded() = Unit
+        override suspend fun getSession(): AuthSession? =
+            accessToken?.let { AuthSession(it, "refresh-token") }
 
         override fun currentAccessToken(): String? = accessToken
 

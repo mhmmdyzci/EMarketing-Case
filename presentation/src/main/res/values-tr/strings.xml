@@ -16,4 +16,17 @@
     <string name="error_no_connection">İnternet bağlantını kontrol edip tekrar dene.</string>
     <string name="error_storage">Veri güvenli biçimde kaydedilemedi.</string>
     <string name="error_unknown">Bir sorun oluştu. Tekrar dene.</string>
+    <string name="home_title">eMarketing</string>
+    <string name="home_logout">Çıkış yap</string>
+    <string name="home_campaign_title">Sezon fırsatları başladı</string>
+    <string name="home_campaign_description">Seçili ürünleri ve güncel kampanya fırsatlarını keşfet.</string>
+    <string name="home_categories_title">Kategoriler</string>
+    <string name="home_category_beauty">Kozmetik</string>
+    <string name="home_category_furniture">Mobilya</string>
+    <string name="home_category_smartphones">Akıllı telefonlar</string>
+    <string name="home_category_clothing">Giyim</string>
+    <string name="home_products_title">Ürün kataloğu</string>
+    <string name="home_products_description">Optimize edilmiş, sayfalı ürün listesiyle tüm kataloğu incele.</string>
+    <string name="home_products_action">Ürünleri görüntüle</string>
+    <string name="session_loading">Oturum kontrol ediliyor</string>
 </resources>
