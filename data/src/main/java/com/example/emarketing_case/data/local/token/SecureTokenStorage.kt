@@ -12,7 +12,6 @@ import com.example.emarketing_case.domain.repository.TokenStorage
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.nio.charset.StandardCharsets
 import java.security.KeyStore
-import kotlin.coroutines.cancellation.CancellationException
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
@@ -30,7 +29,7 @@ internal class SecureTokenStorage @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : TokenStorage {
     @Volatile
-    private var cachedAccessToken: String? = null
+    private var cachedSession: AuthSession? = null
 
     @Volatile
     private var isCacheInitialized = false
@@ -46,57 +45,47 @@ internal class SecureTokenStorage @Inject constructor(
                 preferences[ACCESS_TOKEN_KEY] = encryptedAccessToken
                 preferences[REFRESH_TOKEN_KEY] = encryptedRefreshToken
             }
-            cachedAccessToken = session.accessToken
+            cachedSession = session
             isCacheInitialized = true
         }
     }
 
-    override suspend fun restoreIfNeeded() {
-        if (isCacheInitialized) return
+    override suspend fun getSession(): AuthSession? {
+        if (isCacheInitialized) return cachedSession
 
-        cacheMutex.withLock {
+        return cacheMutex.withLock {
             if (!isCacheInitialized) {
-                cachedAccessToken = readSession()?.accessToken
+                cachedSession = readSession()
                 isCacheInitialized = true
             }
+            cachedSession
         }
     }
 
-    override fun currentAccessToken(): String? = cachedAccessToken
+    override fun currentAccessToken(): String? = cachedSession?.accessToken
 
     override suspend fun clear() {
         cacheMutex.withLock {
             clearStoredTokens()
-            cachedAccessToken = null
+            cachedSession = null
             isCacheInitialized = true
         }
     }
 
-    private suspend fun readSession(): AuthSession? =
-        try {
-            val preferences = context.tokenDataStore.data.first()
-            val encryptedAccessToken = preferences[ACCESS_TOKEN_KEY]
-            val encryptedRefreshToken = preferences[REFRESH_TOKEN_KEY]
+    private suspend fun readSession(): AuthSession? {
+        val preferences = context.tokenDataStore.data.first()
+        val encryptedAccessToken = preferences[ACCESS_TOKEN_KEY]
+        val encryptedRefreshToken = preferences[REFRESH_TOKEN_KEY]
 
-            if (encryptedAccessToken == null && encryptedRefreshToken == null) {
-                null
-            } else {
-                AuthSession(
-                    accessToken = decrypt(requireNotNull(encryptedAccessToken)),
-                    refreshToken = decrypt(requireNotNull(encryptedRefreshToken)),
-                )
-            }
-        } catch (exception: CancellationException) {
-            throw exception
-        } catch (_: Exception) {
-            try {
-                clearStoredTokens()
-            } catch (exception: CancellationException) {
-                throw exception
-            } catch (_: Exception) {
-            }
-            null
+        if (encryptedAccessToken == null && encryptedRefreshToken == null) {
+            return null
         }
+
+        return AuthSession(
+            accessToken = decrypt(requireNotNull(encryptedAccessToken)),
+            refreshToken = decrypt(requireNotNull(encryptedRefreshToken)),
+        )
+    }
 
     private suspend fun clearStoredTokens() {
         context.tokenDataStore.edit { preferences -> preferences.clear() }

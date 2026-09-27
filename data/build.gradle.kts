@@ -42,4 +42,5 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     kapt(libs.hilt.compiler)
     testImplementation(libs.junit)
+    testImplementation(libs.okhttp.mockwebserver)
 }

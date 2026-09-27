@@ -3,6 +3,8 @@ package com.example.emarketing_case.data.repository
 import com.example.emarketing_case.data.api.AuthApiService
 import com.example.emarketing_case.data.dto.LoginRequestDto
 import com.example.emarketing_case.data.dto.LoginResponseDto
+import com.example.emarketing_case.data.dto.RefreshTokenRequestDto
+import com.example.emarketing_case.data.dto.RefreshTokenResponseDto
 import com.example.emarketing_case.domain.model.AppError
 import com.example.emarketing_case.domain.model.AppResult
 import com.example.emarketing_case.domain.model.AuthSession
@@ -76,6 +78,11 @@ class AuthRepositoryImplTest {
             exception?.let { throw it }
             return requireNotNull(response)
         }
+
+        override suspend fun refresh(request: RefreshTokenRequestDto): RefreshTokenResponseDto =
+            error("Refresh is not expected in login tests")
+
+        override suspend fun validateSession() = error("Validation is not expected in login tests")
     }
 
     private class FakeTokenStorage(
@@ -88,7 +95,7 @@ class AuthRepositoryImplTest {
             savedSession = session
         }
 
-        override suspend fun restoreIfNeeded() = Unit
+        override suspend fun getSession(): AuthSession? = savedSession
 
         override fun currentAccessToken(): String? = null
 
