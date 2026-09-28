@@ -10,18 +10,13 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Inventory2
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,10 +32,12 @@ import androidx.paging.compose.itemKey
 import com.example.emarketing_case.domain.model.Product
 import com.example.emarketing_case.presentation.R
 import com.example.emarketing_case.presentation.components.AppButton
+import com.example.emarketing_case.presentation.components.AppTopBar
 import com.example.emarketing_case.presentation.error.toMessageRes
-import com.example.emarketing_case.presentation.products.components.ProductItem
+import com.example.emarketing_case.presentation.products.components.ProductCard
+import com.example.emarketing_case.presentation.theme.AppProductPrice
+import com.example.emarketing_case.presentation.theme.appBackground
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductsScreen(
     products: LazyPagingItems<Product>,
@@ -50,19 +47,14 @@ fun ProductsScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
+            .appBackground()
             .statusBarsPadding()
             .navigationBarsPadding(),
     ) {
-        TopAppBar(
-            title = { Text(stringResource(R.string.products_title)) },
-            navigationIcon = {
-                IconButton(onClick = onBackClick) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                        contentDescription = stringResource(R.string.products_back),
-                    )
-                }
-            },
+        AppTopBar(
+            title = stringResource(R.string.products_title),
+            backContentDescription = stringResource(R.string.products_back),
+            onBackClick = onBackClick,
         )
 
         when (val refreshState = products.loadState.refresh) {
@@ -91,13 +83,15 @@ private fun ProductsList(
     products: LazyPagingItems<Product>,
     modifier: Modifier = Modifier,
 ) {
-    val listState = rememberLazyListState()
-
     LazyColumn(
-        state = listState,
         modifier = modifier,
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        contentPadding = PaddingValues(
+            start = 16.dp,
+            top = 16.dp,
+            end = 16.dp,
+            bottom = 24.dp,
+        ),
+        verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
         items(
             count = products.itemCount,
@@ -105,7 +99,7 @@ private fun ProductsList(
             contentType = products.itemContentType { Product::class },
         ) { index ->
             products[index]?.let { product ->
-                ProductItem(
+                ProductCard(
                     product = product,
                     modifier = Modifier.fillMaxWidth(),
                 )
@@ -145,6 +139,7 @@ private fun ProductsLoading(
             modifier = Modifier.semantics {
                 contentDescription = loadingDescription
             },
+            color = AppProductPrice,
         )
     }
 }
@@ -163,12 +158,15 @@ private fun ProductsError(
         Text(
             text = message,
             style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
         )
         AppButton(
             text = stringResource(R.string.products_retry),
             onClick = onRetryClick,
-            modifier = Modifier.padding(top = 16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp),
         )
     }
 }
@@ -185,10 +183,12 @@ private fun EmptyProducts(
         Icon(
             imageVector = Icons.Outlined.Inventory2,
             contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         Text(
             text = stringResource(R.string.products_empty),
             style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 12.dp),
         )

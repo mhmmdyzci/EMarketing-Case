@@ -37,4 +37,5 @@
     <string name="products_image_description">%1$s ürününün görseli</string>
     <string name="products_rating">%1$.1f</string>
     <string name="products_stock">Stok: %1$d</string>
+    <string name="products_metadata_separator">•</string>
 </resources>
