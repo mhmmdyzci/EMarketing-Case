@@ -4,6 +4,7 @@ import com.example.emarketing_case.data.BuildConfig
 import com.example.emarketing_case.data.api.AuthApiService
 import com.example.emarketing_case.data.api.AuthorizationInterceptor
 import com.example.emarketing_case.data.api.NetworkConfig
+import com.example.emarketing_case.data.api.ProductApiService
 import com.example.emarketing_case.data.api.SessionAuthenticator
 import com.example.emarketing_case.domain.repository.AuthRepository
 import com.example.emarketing_case.domain.repository.TokenStorage
@@ -60,6 +61,11 @@ object NetworkModule {
         @AuthClient okHttpClient: OkHttpClient,
         gson: Gson,
     ): AuthApiService = createRetrofit(okHttpClient, gson).create(AuthApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideProductApiService(retrofit: Retrofit): ProductApiService =
+        retrofit.create(ProductApiService::class.java)
 
     private fun createRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit =
         Retrofit.Builder()

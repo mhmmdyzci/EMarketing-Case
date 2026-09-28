@@ -29,4 +29,12 @@
     <string name="home_products_description">Optimize edilmiş, sayfalı ürün listesiyle tüm kataloğu incele.</string>
     <string name="home_products_action">Ürünleri görüntüle</string>
     <string name="session_loading">Oturum kontrol ediliyor</string>
+    <string name="products_title">Ürünler</string>
+    <string name="products_back">Geri dön</string>
+    <string name="products_loading">Ürünler yükleniyor</string>
+    <string name="products_retry">Tekrar dene</string>
+    <string name="products_empty">Ürün bulunamadı.</string>
+    <string name="products_image_description">%1$s ürününün görseli</string>
+    <string name="products_rating">%1$.1f</string>
+    <string name="products_stock">Stok: %1$d</string>
 </resources>

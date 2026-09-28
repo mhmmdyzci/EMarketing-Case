@@ -24,7 +24,6 @@ import com.example.emarketing_case.presentation.session.SessionViewModel
 @Composable
 fun EMarketingCaseApp(
     modifier: Modifier = Modifier,
-    onProductsClick: () -> Unit = {},
     sessionViewModel: SessionViewModel = hiltViewModel(),
 ) {
     val sessionState by sessionViewModel.sessionState.collectAsStateWithLifecycle()
@@ -42,7 +41,6 @@ fun EMarketingCaseApp(
             SessionState.Unauthenticated,
             -> SessionNavigation(
                 sessionState = sessionState,
-                onProductsClick = onProductsClick,
                 onLogoutClick = sessionViewModel::logout,
                 contentPadding = contentPadding,
             )
@@ -53,7 +51,6 @@ fun EMarketingCaseApp(
 @Composable
 private fun SessionNavigation(
     sessionState: SessionState,
-    onProductsClick: () -> Unit,
     onLogoutClick: () -> Unit,
     contentPadding: PaddingValues,
 ) {
@@ -68,9 +65,16 @@ private fun SessionNavigation(
         navController = navController,
         startDestination = startDestination,
         contentPadding = contentPadding,
-        onProductsClick = onProductsClick,
+        onNavigateToProducts = navController::navigateToProducts,
+        onNavigateBack = navController::navigateUp,
         onLogoutClick = onLogoutClick,
     )
+}
+
+private fun NavHostController.navigateToProducts() {
+    navigate(ScreenRoutes.PRODUCTS) {
+        launchSingleTop = true
+    }
 }
 
 private fun NavHostController.navigateToSession(sessionState: SessionState) {
@@ -79,7 +83,7 @@ private fun NavHostController.navigateToSession(sessionState: SessionState) {
     if (currentRoute == destination) return
 
     navigate(destination) {
-        popUpTo(graph.startDestinationId) {
+        popUpTo(graph.id) {
             inclusive = true
         }
         launchSingleTop = true

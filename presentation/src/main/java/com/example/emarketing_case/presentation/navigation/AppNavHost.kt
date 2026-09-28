@@ -10,13 +10,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.emarketing_case.presentation.auth.login.LoginRoute
 import com.example.emarketing_case.presentation.home.HomeRoute
+import com.example.emarketing_case.presentation.products.ProductsRoute
 
 @Composable
 fun AppNavHost(
     navController: NavHostController,
     startDestination: String,
     contentPadding: PaddingValues,
-    onProductsClick: () -> Unit,
+    onNavigateToProducts: () -> Unit,
+    onNavigateBack: () -> Unit,
     onLogoutClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -34,8 +36,16 @@ fun AppNavHost(
         }
         composable(ScreenRoutes.HOME) {
             HomeRoute(
-                onProductsClick = onProductsClick,
+                onProductsClick = onNavigateToProducts,
                 onLogoutClick = onLogoutClick,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(contentPadding),
+            )
+        }
+        composable(ScreenRoutes.PRODUCTS) {
+            ProductsRoute(
+                onBackClick = onNavigateBack,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(contentPadding),
