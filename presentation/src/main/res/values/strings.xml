@@ -29,4 +29,12 @@
     <string name="home_products_description">Browse the complete catalog with an optimized, paginated product list.</string>
     <string name="home_products_action">View products</string>
     <string name="session_loading">Checking your session</string>
+    <string name="products_title">Products</string>
+    <string name="products_back">Go back</string>
+    <string name="products_loading">Products are loading</string>
+    <string name="products_retry">Try again</string>
+    <string name="products_empty">No products were found.</string>
+    <string name="products_image_description">Image of %1$s</string>
+    <string name="products_rating">%1$.1f</string>
+    <string name="products_stock">%1$d in stock</string>
 </resources>

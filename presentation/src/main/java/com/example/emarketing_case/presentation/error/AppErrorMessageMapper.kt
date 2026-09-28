@@ -11,14 +11,19 @@ class AppErrorMessageMapper @Inject constructor() {
     fun map(
         error: AppError,
         @StringRes unauthorizedMessageRes: Int = R.string.error_unauthorized,
-    ): Int =
-        when (error) {
-            AppError.Timeout -> R.string.error_timeout
-            AppError.Unauthorized -> unauthorizedMessageRes
-            AppError.Server -> R.string.error_server
-            AppError.InvalidData -> R.string.error_invalid_data
-            AppError.NoConnection -> R.string.error_no_connection
-            AppError.Storage -> R.string.error_storage
-            AppError.Unknown -> R.string.error_unknown
-        }
+    ): Int = error.toMessageRes(unauthorizedMessageRes)
 }
+
+@StringRes
+fun AppError.toMessageRes(
+    @StringRes unauthorizedMessageRes: Int = R.string.error_unauthorized,
+): Int =
+    when (this) {
+        AppError.Timeout -> R.string.error_timeout
+        AppError.Unauthorized -> unauthorizedMessageRes
+        AppError.Server -> R.string.error_server
+        AppError.InvalidData -> R.string.error_invalid_data
+        AppError.NoConnection -> R.string.error_no_connection
+        AppError.Storage -> R.string.error_storage
+        AppError.Unknown -> R.string.error_unknown
+    }
