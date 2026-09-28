@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_brand">eMarketing</string>
+    <string name="login_title">Hesabına giriş yap</string>
+    <string name="login_subtitle">Kampanya ve ürün yönetimine devam et.</string>
+    <string name="login_username_label">Kullanıcı adı</string>
+    <string name="login_password_label">Şifre</string>
+    <string name="login_show_password">Şifreyi göster</string>
+    <string name="login_hide_password">Şifreyi gizle</string>
+    <string name="login_action">Giriş yap</string>
+    <string name="login_error_invalid_credentials">Kullanıcı adı veya şifre hatalı.</string>
+    <string name="error_timeout">İstek zaman aşımına uğradı. Tekrar dene.</string>
+    <string name="error_unauthorized">Oturumun sona erdi. Tekrar giriş yap.</string>
+    <string name="error_server">Sunucuya şu anda ulaşılamıyor. Daha sonra tekrar dene.</string>
+    <string name="error_invalid_data">Alınan veri işlenemedi.</string>
+    <string name="error_no_connection">İnternet bağlantını kontrol edip tekrar dene.</string>
+    <string name="error_storage">Veri güvenli biçimde kaydedilemedi.</string>
+    <string name="error_unknown">Bir sorun oluştu. Tekrar dene.</string>
+    <string name="home_title">eMarketing</string>
+    <string name="home_logout">Çıkış yap</string>
+    <string name="home_campaign_title">Sezon fırsatları başladı</string>
+    <string name="home_campaign_description">Seçili ürünleri ve güncel kampanya fırsatlarını keşfet.</string>
+    <string name="home_categories_title">Kategoriler</string>
+    <string name="home_category_beauty">Kozmetik</string>
+    <string name="home_category_furniture">Mobilya</string>
+    <string name="home_category_smartphones">Akıllı telefonlar</string>
+    <string name="home_category_clothing">Giyim</string>
+    <string name="home_products_title">Ürün kataloğu</string>
+    <string name="home_products_description">Optimize edilmiş, sayfalı ürün listesiyle tüm kataloğu incele.</string>
+    <string name="home_products_action">Ürünleri görüntüle</string>
+    <string name="session_loading">Oturum kontrol ediliyor</string>
+    <string name="products_title">Ürünler</string>
+    <string name="products_back">Geri dön</string>
+    <string name="products_loading">Ürünler yükleniyor</string>
+    <string name="products_retry">Tekrar dene</string>
+    <string name="products_empty">Ürün bulunamadı.</string>
+    <string name="products_image_description">%1$s ürününün görseli</string>
+    <string name="products_rating">%1$.1f</string>
+    <string name="products_stock">Stok: %1$d</string>
+    <string name="products_metadata_separator">•</string>
+</resources>
